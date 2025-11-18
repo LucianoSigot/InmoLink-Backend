@@ -9,6 +9,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
+//Middelware para parsear JSON y cookies
 app.use(express.json());
 app.use(cookieParser());
 

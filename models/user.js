@@ -6,11 +6,29 @@ const userschema = new mongoose.Schema({
         required: true,
         unique: true,
         lowercase: true,
-        trim: true },
+        trim: true 
+    },
     password: { 
         type: String,
-        required: true, 
-        minlength: 6 }
+        required: function() {
+            return !this.googleId;
+        },
+        minlength: 6 
+    },
+    name: {
+        type: String,
+        trim: true
+    },
+    googleId: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    foto: {
+        type: String
+    }
+}, {
+    timestamps: true
 });
 
 export default mongoose.model("User", userschema);
