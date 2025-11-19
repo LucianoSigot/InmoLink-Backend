@@ -19,11 +19,6 @@ export const register = async (req, res) => {
             email,
             password: hashedPassword
         });
-
-        // Crear usuario
-        const nuevoUsuario = new User({email,password: hashedPassword });
-
-        await nuevoUsuario.save();
         
         return setAuthResponse(res, user, isNewUser);
 

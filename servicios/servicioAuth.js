@@ -1,35 +1,19 @@
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 
-// Servicio que permite reutilizar la autenticación 
-export const servicioAuth = async (datosUsuario) => {
-    const { email, name, googleId, foto, password } = datosUsuario; 
-    
-    let user = await User.findOne({   
-        $or: [
-            { email },
-            { googleId }
-        ]
-    });
+// Servicio que crea o valida un usuario con email/password
+export const servicioAuth = async ({ email, password }) => {
+    let user = await User.findOne({ email });
     
     const isNewUser = !user;
     
-    // No se encuentra el usuario
+    // Si el usuario no existe, crear uno nuevo
     if (!user) {
         user = new User({
             email,
-            name: name || email.split('@')[0],
-            googleId,
-            foto,
-            password: password 
+            password,
+            name: email.split('@')[0]
         });
-        await user.save();
-    }
-    // Vinculo cuenta de google ya existente
-    else if (googleId && !user.googleId) {
-        user.googleId = googleId;
-        user.name = name || user.name;
-        user.foto = foto || user.foto;
         await user.save();
     }
     
@@ -37,16 +21,14 @@ export const servicioAuth = async (datosUsuario) => {
 }
 
 export const generateToken = (user) => {
-    // Mismo token para todos tipos vinculación (google, email, etc)
     return jwt.sign(
-        { id: user._id, email: user.email },  // 
+        { id: user._id, email: user.email },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
     );
 }
 
 export const setAuthCookie = (res, token) => {
-    // Misma cookie para email Y Google
     res.cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -63,9 +45,8 @@ export const setAuthResponse = (res, user, isNewUser = false) => {
         msg: isNewUser ? 'Usuario registrado correctamente' : 'Login exitoso',
         token,
         user: {
-            id: user._id,  // 
+            id: user._id,
             email: user.email,
-            foto: user.foto,
             name: user.name
         }
     });
