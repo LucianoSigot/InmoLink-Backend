@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const casaSchema = new mongoose.Schema({
+const propertySchema = new mongoose.Schema({
     propietarioId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -88,4 +88,4 @@ const casaSchema = new mongoose.Schema({
     timestamps: true // Esto agrega automáticamente createdAt y updatedAt
 });
 
-export default mongoose.model("Casa", casaSchema);
+export default mongoose.model("Property", propertySchema);
