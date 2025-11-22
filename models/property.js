@@ -6,31 +6,31 @@ const propertySchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    titulo: { 
-        type: String, 
-        required: true,
-        trim: true 
-    },
-    descripcion: { 
+    titulo: {
         type: String,
-        required: true 
+        required: true,
+        trim: true
     },
-    ubicacion: { 
-        type: String, 
-        required: true 
+    descripcion: {
+        type: String,
+        required: true
     },
-    precio: { 
-        type: Number, 
-        required: true 
+    ubicacion: {
+        type: String,
+        required: true
     },
-    habitaciones: { 
-        type: Number, 
+    precio: {
+        type: Number,
+        required: true
+    },
+    habitaciones: {
+        type: Number,
         required: true,
         min: 1
     },
     // Almacenaremos las URLs de las fotos subidas a Supabase
-    fotos: [{ 
-        type: String 
+    fotos: [{
+        type: String
     }],
     // Estado para la moderación (Administrador)
     estado: {
@@ -42,7 +42,7 @@ const propertySchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    // Estructura de servicios exacta según tu JSON.docx
+
     servicios: {
         basicos: {
             wifi: { type: Boolean, default: false },
