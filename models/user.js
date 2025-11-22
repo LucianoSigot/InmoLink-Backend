@@ -8,6 +8,11 @@ const userschema = new mongoose.Schema({
         lowercase: true,
         trim: true 
     },
+    rol: {
+        type: String,
+        enum: ['usuario', 'admin'],
+        default: 'usuario' // Por defecto, todos entran como usuarios normales
+    },
     password: { 
         type: String,
         required: function() {
