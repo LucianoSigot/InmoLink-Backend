@@ -20,7 +20,7 @@ const listProperties = async (req, res) => {
 
 const listMine = async (req, res) => {
   try {
-    const properties = await Property.find({ propietarioId: req.userId });
+    const properties = await Property.find({ propietarioId: req.user });
     res.json(properties);
 
   } catch (error) {
@@ -59,7 +59,7 @@ const createProperty = async (req, res) => {
   try {
     const nuevaPropiedad = new Property({
       ...req.body,
-      propietarioId: req.userId,
+      propietarioId: req.user,
     });
 
     const guardada = await nuevaPropiedad.save();
@@ -78,7 +78,7 @@ const updateProperty = async (req, res) => {
     if (!property)
       return res.status(404).json({ msg: "Propiedad no encontrada" });
 
-    if (property.propietarioId.toString() !== req.userId)
+    if (property.propietarioId.toString() !== req.user)
       return res.status(403).json({ msg: "No tienes permiso para editar esta propiedad" });
 
     const actualizada = await Property.findByIdAndUpdate(
@@ -102,7 +102,7 @@ const deleteProperty = async (req, res) => {
     if (!property)
       return res.status(404).json({ msg: "Propiedad no encontrada" });
 
-    if (property.propietarioId.toString() !== req.userId)
+    if (property.propietarioId.toString() !== req.user)
       return res.status(403).json({ msg: "No tienes permiso para eliminar esta propiedad" });
 
     await Property.findByIdAndDelete(req.params.id);

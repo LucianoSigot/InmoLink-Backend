@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-
+import mongoose from "mongoose"
 const userschema = new mongoose.Schema({
     email: {
         type: String,
@@ -41,6 +40,7 @@ const userschema = new mongoose.Schema({
     descripcion: {
         type: String
     },
+
 
 
 }, {
