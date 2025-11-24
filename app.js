@@ -15,6 +15,7 @@ import { connectDB } from "./config/config.js";
 import { configureGoogleOAuth } from "./controladores/google.js";
 import usuarioRoutes from "./rutas/usuario.js";
 import authRoutes from "./rutas/authenticacion.js";
+import propiedadesRoutes from "./rutas/propiedades.js";
 
 const app = express();
 
@@ -59,6 +60,7 @@ configureGoogleOAuth();
 // Rutas
 app.use("/auth", usuarioRoutes);
 app.use("/api", authRoutes);
+app.use("/properties", propiedadesRoutes);
 
 // Puerto
 const PORT = process.env.PORT || 4000;
