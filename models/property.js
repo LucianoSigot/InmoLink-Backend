@@ -15,6 +15,10 @@ const propertySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    tamanio: {
+        type: Number,
+        required: true
+    },
     ubicacion: {
         type: String,
         required: true
