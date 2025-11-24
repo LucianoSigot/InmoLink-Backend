@@ -43,7 +43,7 @@ export const configureGoogleOAuth = () => {
       )
     );
 
-    // Guardar usuario en sesión (solo guarda el ID)
+    // Guardar usuario en sesión 
     passport.serializeUser((user, done) => {
       done(null, user._id);
     });

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import morgan from "morgan";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const envResult = dotenv.config({ path: path.join(__dirname, ".env") });
@@ -24,6 +24,7 @@ connectDB();
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
+app.use(morgan('dev'));
 
 // CORS
 app.use(

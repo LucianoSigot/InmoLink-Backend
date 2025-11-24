@@ -26,7 +26,18 @@ const userschema = new mongoose.Schema({
     },
     foto: {
         type: String
-    }
+    },
+    telefono: {
+        type: String
+    },
+    direccion: {
+        type: String
+    },
+    descripcion: {
+        type: String
+    },
+
+
 }, {
     timestamps: true
 });
