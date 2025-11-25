@@ -23,6 +23,13 @@ const propertySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    coordenadas: {
+        type: {
+            lat: Number,
+            lng: Number
+        },
+        required: true
+    },
     precio: {
         type: Number,
         required: true
