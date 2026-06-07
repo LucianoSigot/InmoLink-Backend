@@ -37,7 +37,7 @@ export const generateToken = (user) => {
     }
 
     return jwt.sign(
-        { id: user._id, email: user.email },
+        { id: user._id, email: user.email, rol: user.rol },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
     );
@@ -62,7 +62,8 @@ export const setAuthResponse = (res, user, isNewUser = false) => {
         user: {
             id: user._id,
             email: user.email,
-            name: user.name
+            name: user.name,
+            rol: user.rol
         }
     });
 };

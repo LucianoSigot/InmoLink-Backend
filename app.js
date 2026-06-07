@@ -12,6 +12,7 @@ import usuarioRoutes from "./rutas/usuario.js";
 import propiedadesRoutes from "./rutas/propiedades.js";
 import filtrosRoutes from "./rutas/filtros.js";
 import reservationRoutes from "./rutas/reservation.routes.js";
+import adminRoutes from "./rutas/admin.js";
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use("/api", authRoutes);
 app.use("/properties", propiedadesRoutes);
 app.use("/filtros", filtrosRoutes);
 app.use("/reservation", reservationRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.listen(port, () => {
   console.log(`Server: http://localhost:${port}`);

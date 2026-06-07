@@ -65,7 +65,7 @@ export const updateProperty = async (req, res) => {
     const property = await Property.findById(req.params.id);
     if (!property) return res.status(404).json({ msg: "Propiedad no encontrada" });
 
-    if (property.propietarioId.toString() !== req.user) {
+    if (property.propietarioId.toString() !== req.user && req.userRole !== "admin") {
       return res.status(403).json({ msg: "No autorizado" });
     }
 
@@ -87,7 +87,7 @@ export const deleteProperty = async (req, res) => {
     const property = await Property.findById(req.params.id);
     if (!property) return res.status(404).json({ msg: "Propiedad no encontrada" });
 
-    if (property.propietarioId.toString() !== req.user) {
+    if (property.propietarioId.toString() !== req.user && req.userRole !== "admin") {
       return res.status(403).json({ msg: "No autorizado" });
     }
 

@@ -16,7 +16,9 @@ export const authRequired = (req, res, next) => {
         // Verifica y decodifica el token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         // Adjunta el ID del usuario a la solicitud
-        req.user = decoded.id || decoded.userId; 
+        req.user = decoded.id || decoded.userId;
+        // Adjunta el rol del usuario si está disponible en el token
+        req.userRole = decoded.rol || null;
         // Pasa al siguiente manejador de ruta  
         next();
     } catch (error) {
