@@ -94,20 +94,6 @@ export const adminUpdatePropertyStatus = async (req, res) => {
   }
 };
 
-export const adminEditProperty = async (req, res) => {
-  try {
-    const property = await Property.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    if (!property) return res.status(404).json({ msg: "Propiedad no encontrada" });
-    res.json(property);
-  } catch (error) {
-    console.error("Error admin editar propiedad:", error);
-    res.status(500).json({ msg: "Error al editar la propiedad" });
-  }
-};
 
 export const adminDeleteProperty = async (req, res) => {
   try {
@@ -230,29 +216,5 @@ export const adminDeleteUser = async (req, res) => {
   } catch (error) {
     console.error("Error admin eliminar usuario:", error);
     res.status(500).json({ msg: "Error al eliminar el usuario" });
-  }
-};
-
-export const adminEditUser = async (req, res) => {
-  try {
-    const { name, email, telefono, direccion, descripcion, rol } = req.body;
-    const updateFields = {};
-    if (name !== undefined) updateFields.name = name;
-    if (email !== undefined) updateFields.email = email;
-    if (telefono !== undefined) updateFields.telefono = telefono;
-    if (direccion !== undefined) updateFields.direccion = direccion;
-    if (descripcion !== undefined) updateFields.descripcion = descripcion;
-    if (rol !== undefined) updateFields.rol = rol;
-
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      updateFields,
-      { new: true }
-    ).select("-password");
-    if (!user) return res.status(404).json({ msg: "Usuario no encontrado" });
-    res.json(user);
-  } catch (error) {
-    console.error("Error admin editar usuario:", error);
-    res.status(500).json({ msg: "Error al editar el usuario" });
   }
 };
