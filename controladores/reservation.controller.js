@@ -7,6 +7,10 @@ export const createReservation = async (req, res) => {
         const property = await Property.findById(propiedadId);
         if (!property) return res.status(404).json({ message: "Propiedad no encontrada" });
 
+        if (property.propietarioId.toString() === req.user) {
+            return res.status(403).json({ message: "No puedes reservar tu propia propiedad" });
+        }
+
         const reservation = new Reservation({
             propiedadId,
             inquilinoId: req.user,

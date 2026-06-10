@@ -4,7 +4,7 @@ export const filtrarProperties = async (req, res) => {
   try {
     const { filtros, pagina = 1, limite = 21 } = req.body;
     const skip = (Number(pagina) - 1) * Number(limite);
-    const query = {};
+    const query = { estado: 'activa' };
 
     if (filtros?.busqueda?.trim()) {
       const search = filtros.busqueda.toLowerCase();
@@ -63,7 +63,7 @@ export const filtrarProperties = async (req, res) => {
 
 export const obtenerPropiedad = async (req, res) => {
   try {
-    const property = await Property.findById(req.params.id).populate('propietarioId', 'nombre email');
+    const property = await Property.findOne({ _id: req.params.id, estado: 'activa' }).populate('propietarioId', 'nombre email');
     if (!property) return res.status(404).json({ success: false, msg: "Propiedad no encontrada" });
     res.json(property);
   } catch (error) {

@@ -3,7 +3,7 @@ import Property from "../models/property.js";
 export const listProperties = async (req, res) => {
   try {
     const query = {};
-    if (req.query.estado) query.estado = req.query.estado;
+    query.estado = req.query.estado || 'activa';
     if (req.query.propietario) query.propietarioId = req.query.propietario;
 
     const items = await Property.find(query);
@@ -26,7 +26,7 @@ export const listMine = async (req, res) => {
 
 export const listByUser = async (req, res) => {
   try {
-    const items = await Property.find({ propietarioId: req.params.userId });
+    const items = await Property.find({ propietarioId: req.params.userId, estado: 'activa' });
     res.json(items);
   } catch (error) {
     console.error("Error al listar por usuario:", error);
@@ -36,7 +36,7 @@ export const listByUser = async (req, res) => {
 
 export const getProperty = async (req, res) => {
   try {
-    const item = await Property.findById(req.params.id);
+    const item = await Property.findOne({ _id: req.params.id, estado: 'activa' });
     if (!item) return res.status(404).json({ msg: "Propiedad no encontrada" });
     res.json(item);
   } catch (error) {
