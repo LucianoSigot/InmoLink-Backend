@@ -48,6 +48,8 @@ export const setAuthCookie = (res, token) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
+        secure: true,        // OBLIGATORIO para sameSite: 'none'
+        sameSite: 'none',
         maxAge: 3600000 // 1 hora
     });
 };
