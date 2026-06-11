@@ -38,6 +38,8 @@ app.use(session({
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
+    secure: true,        // OBLIGATORIO para sameSite: 'none'
+    sameSite: 'none',
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
